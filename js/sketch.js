@@ -35,7 +35,7 @@ function Bjorklund(n,k){
   let [next_array, remainder] = bjorklund(S, [...pattern], [...prev_pattern], n-k);
   console.log(remainder, next_array);
 
-  while (remainder > 1){
+  while (remainder > 1 && next_array[next_array.length-1] == 0){
 
     pattern.push(0);
     [next_array, remainder] = bjorklund(next_array, [...pattern], [...prev_pattern], remainder);
@@ -67,8 +67,8 @@ function Euclid(m,k,A){
 
 playButton.addEventListener('click', () => {
 
-  let [n,k] = [13,5]; 
-  //[8,5];//
+  let [n,k] = //[13,5];
+  [8,5];//
   //let k = 5;
   mask = Bjorklund(n,k);
       // create a synth
