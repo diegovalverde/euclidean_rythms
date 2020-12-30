@@ -1,4 +1,4 @@
-
+var playing = false;
 /*
 The
 problem for a given number n of time intervals, and another given number k < n of pulses, is to distribute
@@ -52,23 +52,19 @@ function Bjorklund(n,k){
 
 }
 
-function Euclid(m,k,A){
-  if (k==0){
-    A.push(m);
-    return;
-  } else {
-    A[m] = 1;
-    return Euclid(k, m % k, A);
-  }
-}
-    let synth = new Tone.Synth().toMaster();
+let synth = new Tone.Synth().toMaster();
 
-    const playButton = document.getElementById("play-button");
+const playButton = document.getElementById("play-button");
+
+
 
 playButton.addEventListener('click', () => {
 
-  let [n,k] = //[13,5];
-  [8,5];//
+  //playing = !playing;
+  var n = parseInt(document.getElementById("slider_n").value)
+  var k = parseInt(document.getElementById("slider_k").value)
+  //let [n,k] = [13,5];
+  //[8,5];//
   //let k = 5;
   mask = Bjorklund(n,k);
       // create a synth
@@ -92,12 +88,21 @@ const synthPart = new Tone.Sequence(
   notes,
   `${n}n`
 );
-// Setup the synth to be ready to play on beat 1
-synthPart.start();
+
 // Note that if you pass a time into the start method
 // you can specify when the synth part starts
 // e.g. .start('8n') will start after 1 eighth note
 // start the transport which controls the main timeline
-Tone.Transport.start();
+if (!playing) {
+  // Setup the synth to be ready to play on beat 1
+      synthPart.start();
+      Tone.Transport.start();
+      playing = true;
+    } else {
+      // Setup the synth to be ready to play on beat 1
+      synthPart.stop();
+      Tone.Transport.stop();
+      playing = false;
+    }
 
     });
